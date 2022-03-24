@@ -5,6 +5,8 @@ import './NewPostForm.css'
 function NewPostForm(props) {
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
+
+    let newDate = new Date().toDateString()
   
     function submitHandler(e) {
         e.preventDefault()
@@ -25,7 +27,8 @@ function NewPostForm(props) {
 
         const postData = {
             title: title, 
-            description: description
+            description: description,
+            date: newDate
         }
         
         props.onAddPost(postData)
