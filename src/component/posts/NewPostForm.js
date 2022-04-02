@@ -28,7 +28,7 @@ function NewPostForm(props) {
         const postData = {
             title: title, 
             description: description,
-            date: newDate
+            date: newDate,
         }
         
         props.onAddPost(postData)

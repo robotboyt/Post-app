@@ -1,56 +1,111 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import PostList from '../component/posts/PostList'
+// import PostList from '../component/posts/PostList'
+import PostItem from '../component/posts/PostItem'
 import './AllPosts.css'
-
+import { db } from '../firebase'
+import { onValue, ref, remove, set, update} from 'firebase/database'
+import elasticlunr from 'elasticlunr';
 
 function AllPostsPage() {
-    const [isLoading, setIsLoading] = useState(true)
-    const [loadedPosts, setLoadedPosts] = useState([])
-
+    const [title, setTitle] = useState('')
+    const [description, setDescription] = useState('')
+    const [posts, setPosts] = useState([])
+    const [isEdit, setIsEdit] = useState(false)
+    const [tempId, setTempId] = useState('')
+    const [value, setValue] = useState('')
+  
+    let index = elasticlunr();
+    index.addField('title')
+    index.addField('description')
+  
+    //read
     useEffect(() => {
-        setIsLoading(true)
-         fetch('https://nerdy-soft-test-default-rtdb.europe-west1.firebasedatabase.app/posts.json',
-    )
-    .then((response )=> {
-        return response.json()
-    })
-    .then((data) => {
-        const posts = []
-
-        for (const key in data) {
-            const post = {
-                id: key,
-                ...data[key]
+        onValue(ref(db), (snapshot) => {
+            setPosts([])
+            const data = snapshot.val()
+            if(data !== null) {
+                Object.values(data).map((post) => {
+                    setPosts(oldArray => [...oldArray, post])
+                })
             }
+        })    
+    }, [])
 
-            posts.push(post)
-            console.log(post.id);
-        }
-
-        setIsLoading(false)
-        setLoadedPosts(posts)
-    })
-}, [])
-
-   
-
-    if(isLoading) {
-        return(
-        <section>
-            <p className='loading-text'>Loading...</p>
-        </section>
-        )
+    // delete 
+    const handleDelete = (item) => {
+      remove(ref(db, `/${item.id}`))
     }
+    
+    // update
+    const handleUpdate = (item) => {
+      setIsEdit(true)
+      setTempId(item.id)
+      setTitle(item.title)
+      setDescription(item.description)
+      document.documentElement.scrollTop = '0px'
+    }
+  
+    const handleSubmitChange = () => {
+      update(ref(db, `/${tempId}`), {
+        title, 
+        description,
+        id: tempId
+      })
+      setTitle('')
+      setDescription('')
+      setIsEdit(false)
+    }
+
+    const filteredPosts = posts.filter(item => {
+     return item.title.toLowerCase().includes(value.toLowerCase())
+    })
+
+    posts.forEach((item) => index.addDoc(item) )
+
+    let groupedPosts = posts.reduce((prev, current) => {
+        prev[current.id] = current
+        return prev
+    }, {})
+
+    const [iTitle, setITitle] = useState('')
+
+    const foundIDs = index.search(iTitle).map(item => item.ref)
 
     return(
         <div>
                 <h1>All Posts</h1>
+                <div className='search-block'>
+                    <input className='search' type='search' placeholder='Please write text' onChange={e => setValue(e.target.value) } />
+                </div>
+                {isEdit  ? (
+                    <div className='changes-block'>
+                    <input type='text'   value={title} onChange={e => setTitle(e.target.value)}/>
+                    <textarea type="textarea" rows='auto'  value={description} onChange={e => setDescription(e.target.value)} ></textarea>
+                    <button onClick={handleSubmitChange}>Change Add</button>
+                    <button onClick={() => {
+                        setIsEdit(false)
+                        setTitle('')
+                        setDescription('')
+                    }}>Close</button>
+                    </div>
+                )
+                :
+                (
+                    ''
+                )
+                }
             <section className='section-posts'>
-                <PostList posts={loadedPosts} />
+                {
+                    filteredPosts.map((item, index) => {
+
+                        return   < PostItem posts={item} key={index} handleDelete={() => handleDelete(item)} handleUpdate={() => handleUpdate(item)} foundIDs={foundIDs} groupedPosts={groupedPosts}  setITitle={setITitle}/>
+                    })
+                }
             </section>
         </div>
-    )
+        
+        )
 }
 
 export default AllPostsPage
