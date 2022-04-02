@@ -4,19 +4,19 @@ import {getDatabase} from 'firebase/database'
 
 const firebaseConfig = {
 
-  apiKey: "AIzaSyDR0S_kagIU2Qn2HCALGQgRVfChICSTeck",
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
 
-  authDomain: "nerdy-soft-test.firebaseapp.com",
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN ,
 
-  databaseURL: "https://nerdy-soft-test-default-rtdb.europe-west1.firebasedatabase.app",
+  databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL ,
 
-  projectId: "nerdy-soft-test",
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID ,
 
-  storageBucket: "nerdy-soft-test.appspot.com",
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET ,
 
-  messagingSenderId: "596830358927",
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID ,
 
-  appId: "1:596830358927:web:173c1cca64b89290228ffa"
+  appId: process.env.REACT_APP_FIREBASE_APP_ID
 
 };
 
