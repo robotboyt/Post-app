@@ -1,13 +1,15 @@
-This is a test project for Nerdy-Soft company
-This project I created on React JS
-This is a website on you can posting Post and  see similar posts, date of create, u can update , delete add post in real time with using database
-In this poject I use React-Router for routing between pages 
-Also React-Hooks and Firebase for create database and using his function (update, delete, set, read)
-Also I use UID for everypost for  have special ID in database.
-For search similar posts I use Elasticlurn.js
-also for simple UI I use FontAwesome Icon 
-and in end project I write a veru simple tests
-for deploy i use gh-pages that deploying in GitHub
+## _The Simple Playground Task, Ever_
 
-Developing this project took a 4 days  
-Thank you for read!
+Technologies:
+- React.js with React-Router, React-Hooks
+- Firebase
+- Elasticlunr.js - for full text search (I decided to not use self written feauture also some conplicated stuff such Algolia)
+- ✨ bit of Magic ✨
+
+## Features
+- This is tiny project on you can posting Post with Title and Description
+- You can see date of create and see similar posts
+- Also you can update , delete,  add post in real time with using database
+
+
+You can try it by [this link](https://robotboyt.github.io/nerdy-soft/)
