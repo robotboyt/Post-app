@@ -4,7 +4,6 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import './PostItem.css'
 import { useState } from "react";
-import { uid } from "uid";
 
 
 

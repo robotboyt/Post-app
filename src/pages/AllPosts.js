@@ -1,10 +1,9 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-// import PostList from '../component/posts/PostList'
 import PostItem from '../component/posts/PostItem'
 import './AllPosts.css'
 import { db } from '../firebase'
-import { onValue, ref, remove, set, update} from 'firebase/database'
+import { onValue, ref, remove, update} from 'firebase/database'
 import elasticlunr from 'elasticlunr';
 
 function AllPostsPage() {
@@ -97,8 +96,7 @@ function AllPostsPage() {
                 }
             <section className='section-posts'>
                 {
-                    filteredPosts.map((item, index) => {
-
+                    filteredPosts.reverse().map((item, index) => {
                         return   < PostItem posts={item} key={index} handleDelete={() => handleDelete(item)} handleUpdate={() => handleUpdate(item)} foundIDs={foundIDs} groupedPosts={groupedPosts}  setITitle={setITitle}/>
                     })
                 }

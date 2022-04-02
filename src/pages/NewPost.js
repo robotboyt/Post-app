@@ -2,7 +2,7 @@ import React from 'react'
 import { useHistory } from 'react-router-dom'
 import NewPostForm from '../component/posts/NewPostForm'
 import { db } from '../firebase'
-import { onValue, ref, remove, set, update } from 'firebase/database';
+import { ref, set} from 'firebase/database';
 import {uid} from 'uid'
 
 function NewPostPage() {
