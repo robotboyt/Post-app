@@ -2,7 +2,7 @@
 
 Technologies:
 - React.js with React-Router, React-Hooks
-- Firebase
+- Firebase for create Database
 - Elasticlunr.js - for full text search (I decided to not use self written feauture also some conplicated stuff such Algolia)
 - ✨ bit of Magic ✨
 
@@ -12,5 +12,5 @@ Technologies:
 - You can search posts on title
 - Also you can update , delete,  add post in real time with using database
 
-
+Project development took 4 days. 
 You can try it by [this link](https://robotboyt.github.io/nerdy-soft/)
