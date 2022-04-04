@@ -9,6 +9,7 @@ Technologies:
 ## Features
 - This is tiny project on you can posting Post with Title and Description
 - You can see date of create and see similar posts
+- You can search posts on title
 - Also you can update , delete,  add post in real time with using database
 
 
